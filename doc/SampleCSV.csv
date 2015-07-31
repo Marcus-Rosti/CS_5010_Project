@@ -1,0 +1,5 @@
+date_unix, main_temp, main_pressure, main_humidity, main_temp_min, main_temp_max, wind_speed, wind_deg, clouds_all, weather_main, weather_description
+1438217161,300.32,1015,74,299.25,302.15,2.6,180,40,"Clouds","scattered clouds"
+
+
+
