@@ -28,24 +28,17 @@ def update(filename):
     logger.debug('Returning last: '+str(last)+' and first: ' + str(current))
     return last, current
 
-# @TODO maybe this should take in a filename too
-# def parseJSONFile(JSONFile, output_file):
-def parseJSONFile(JSONFile):
+
+def parseJSONFile(JSONFile, output_file):
     logger.debug('Parsing file: ' + JSONFile)
     with open(JSONFile) as datafile:
             rawData = json.load(datafile)
 
-    # file = open(output_file,"a")
-    file = open("../data/testOutput.csv","a")
+    file = open(output_file,"a")
+    # file = open("../data/testOutput.csv","a")
     f = csv.writer(file,quotechar='"')
 
-    # if not (os.path.isfile(output_file)):
-    if not (os.path.isfile("../data/testOutput.csv")):
-        headers=["date_unix","main_temp","main_pressure","main_humidity","main_temp_min","main_temp_max","wind_speed","wind_deg","weather_main","weather_description"]
-        f.writeheader()
-
     listData = rawData['list']
-
 
     for hourlyRecord in listData:
         date_unix = hourlyRecord['dt']
@@ -62,3 +55,5 @@ def parseJSONFile(JSONFile):
 
     logger.debug('Finished parsing file')
     file.close()
+
+parseJSONFile("../data/example.json")
