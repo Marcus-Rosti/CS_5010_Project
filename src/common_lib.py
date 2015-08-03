@@ -56,4 +56,4 @@ def parseJSONFile(JSONFile, output_file):
     logger.debug('Finished parsing file')
     file.close()
 
-parseJSONFile("../data/example.json")
+#parseJSONFile("../data/example.json")
