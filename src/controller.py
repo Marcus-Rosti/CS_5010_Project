@@ -6,20 +6,26 @@ import common_lib
 logger = logging.getLogger(__name__)
 logging.basicConfig(filename='../logs/controller.log',level=logging.DEBUG, \
     format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
-    
+
 def main():
     logger.debug('setting filename to ../data/testOutput.csv')
-    filename = "../data/testOutput.csv"
+    # files to use
+    sample_csv = '../data/SampleCSV.csv'
+    output_json = '../data/live_example.json'
+    output_csv =  '../data/SampleCSV.csv'
 
-    dates = common_lib.update(filename)
-    logger.debug(dates)
-    logger.debug('recieved dates from date function')
+    (start_time, end_time) = common_lib.update(sample_csv)
+    logger.debug('recieved times from date function')
 
-#    extracted_json = common_lib.extract(dates)
-    logger.debug('received dates from extract funciton')
+    extracted_json = common_lib.extractor(start_time, end_time)
+    logger.debug('received json from extract funciton')
 
-    common_lib.parseJSONFile('../data/example.json')
+    common_lib.write_json_to_file(output_json,extracted_json)
+
+    common_lib.parseJSONFile(output_json,output_csv)
     logger.debug('csv was successfully updated')
 
 if __name__ == "__main__":
-        main()
+    logger.info('\n\n\n\n\n\n')
+    logger.info('Running controller with default inputs')
+    main()
