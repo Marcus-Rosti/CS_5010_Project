@@ -2,6 +2,9 @@ import json
 import csv
 import os.path
 import logging
+import time
+import urllib.request
+
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(filename='../logs/controller.log',level=logging.DEBUG, \
@@ -19,14 +22,14 @@ def update(filename):
         next(lines, None) #skips the header
         for line in lines:
             times.append(int(line[0]))
-    last = max(times)
+    start_time = max(times)
 
     #get the current time
-    import time
-    current = int(time.time())
+    end_time = int(time.time())
 
-    logger.debug('Returning last: '+str(last)+' and first: ' + str(current))
-    return last, current
+    logger.debug('Returning \n\tfirst: ' + str(start_time) + \
+                           '\n\tlast:  ' + str(end_time))
+    return start_time, end_time
 
 
 def parseJSONFile(JSONFile, output_file):
@@ -56,4 +59,33 @@ def parseJSONFile(JSONFile, output_file):
     logger.debug('Finished parsing file')
     file.close()
 
-#parseJSONFile("../data/example.json")
+def extractor(start_time, end_time):
+    logger.debug('Getting json between '+str(start_time)+' and '+str(end_time))
+    # Create the url that needs to access
+    url = "http://api.openweathermap.org/data/2.5/history/city?id=4752046&type=hour&start="+str(start_time)+"&end="+str(end_time)
+
+    logger.debug('The Url:\n\t'+url)
+    # Open the url
+    response = urllib.request.urlopen(url)
+
+    # Read-in the JSON file and return the value
+    JSONFile = response.read()
+    return JSONFile
+
+
+def write_json_to_file(filename, json):
+    # writes json to a file
+    logger.debug('Writing json to file '+filename)
+    f = open(filename, 'w')
+    try:
+        json = str(json)
+        json = json[2:len(json)]
+        json = json[0:len(json)-3]
+        f.write(json)
+    except Exception:
+        logger.warning('Error writing to file')
+        raise
+        return False
+    f.close()
+    logger.debug('Successfully wrote to file')
+    return True;
