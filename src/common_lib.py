@@ -39,10 +39,10 @@ def gapFiller(filename):
     #Finds the largest gap in the record
     #returns the first and last date on either side of the gap, in unix time
     #Returns zeros  if nothing larger than an hour
-        
+
     import csv
     #reads in all the times
-    times = [] 
+    times = []
     with open(filename) as csvfile:
         lines = csv.reader(csvfile)
         next(lines, None) #skips the header
@@ -57,7 +57,7 @@ def gapFiller(filename):
             j = i
             g = times[i+1]-times[i]
         i += 1
-    
+
     #See if the gap is larger than an hour
     if g <= 3600:
         return 0, 0

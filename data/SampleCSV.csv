@@ -1,5 +1,5 @@
-date_unix, main_temp, main_pressure, main_humidity, main_temp_min, main_temp_max, wind_speed, wind_deg, clouds_all, weather_main, weather_description
-1438217161,300.32,1015,74,299.25,302.15,2.6,180,40,Clouds,scattered clouds
+date_unix, main_temp, main_pressure, main_humidity, main_temp_min, main_temp_max, wind_speed, wind_deg, weather_main, weather_description
+1438217161,300.32,1015,74,299.25,302.15,2.6,180,Clouds,scattered clouds
 1438245942,296.71,1014,94,295.95,297.59,1.5,180,Mist,mist
 1438245943,296.52,1014,83,295.37,297.15,2.1,190,Clouds,scattered clouds
 1438249555,296.07,1014,88,294.82,297.15,2.56,207,Mist,mist
@@ -86,4 +86,11 @@ date_unix, main_temp, main_pressure, main_humidity, main_temp_min, main_temp_max
 1438692655,298.95,1015,88,298.15,300.15,3.6,230,Clear,sky is clear
 1438696189,300.7,1016,79,300.15,302.15,4.1,220,Clear,sky is clear
 1438699857,302.01,1015,66,300.93,303.15,5.1,210,Clouds,scattered clouds
-1438699857,302.01,1015,66,300.93,303.15,5.1,210,Clouds,scattered clouds
+1438707076,305.25,1015,66,304.15,306.15,4.6,200,Clear,sky is clear
+1438710568,305.98,1014,63,305.15,307.15,3.6,190,Clouds,scattered clouds
+1438714142,306.42,1014,49,305.37,307.15,6.7,220,Clouds,scattered clouds
+1438717625,306.95,1014,66,306.15,308.15,2.6,210,Clouds,broken clouds
+1438721409,306.14,1013,46,304.26,308.15,3.6,230,Rain,moderate rain
+1438725151,303.55,1013,88,298.15,308.15,1.93,279.502,Thunderstorm,thunderstorm
+1438728634,303.51,1013,66,302.04,306.15,3.6,230,Clear,sky is clear
+1438735841,300.79,1013,94,298.15,303.15,0.49,145.509,Mist,mist
