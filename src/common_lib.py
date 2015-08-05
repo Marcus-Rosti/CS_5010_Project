@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Aug  5 11:52:29 2015
+
+@author: temp
+"""
+
 import json
 import csv
 import os.path
@@ -21,15 +28,21 @@ def update(filename):
         next(lines, None) #skips the header
         for line in lines:
             times.append(int(line[0]))
-    start_time = max(times)
+    
 
     #get the current time
     end_time = int(time.time())
 
+    if times == []:
+        return 0, end_time
+    else:
+        start_time = max(times)
+        
     logger.debug('Returning \n\tfirst: ' + str(start_time) + \
                            '\n\tlast:  ' + str(end_time))
 
     #check to see if the times are an hour apart or more
+    
     if end_time-start_time > 3600:
         return start_time, end_time
     else:
@@ -40,7 +53,6 @@ def gapFiller(filename):
     #returns the first and last date on either side of the gap, in unix time
     #Returns zeros  if nothing larger than an hour
         
-    import csv
     #reads in all the times
     times = [] 
     with open(filename) as csvfile:
