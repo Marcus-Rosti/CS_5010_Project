@@ -7,7 +7,7 @@ import urllib.request
 
 
 logger = logging.getLogger(__name__)
-logging.basicConfig(filename='../logs/controller.log',level=logging.DEBUG, \
+logging.basicConfig(filename='../logs/controller.log', level=logging.DEBUG, \
     format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
 
 def update(filename):
@@ -33,14 +33,13 @@ def update(filename):
     if end_time-start_time > 3600:
         return start_time, end_time
     else:
-        return 0,0
+        return 0, 0
 
 def gapFiller(filename):
     #Finds the largest gap in the record
     #returns the first and last date on either side of the gap, in unix time
     #Returns zeros  if nothing larger than an hour
 
-    import csv
     #reads in all the times
     times = []
     with open(filename) as csvfile:
@@ -67,11 +66,11 @@ def gapFiller(filename):
 def parseJSONFile(JSONFile, output_file):
     logger.debug('Parsing file: ' + JSONFile)
     with open(JSONFile) as datafile:
-            rawData = json.load(datafile)
+        rawData = json.load(datafile)
 
-    file = open(output_file,"a")
+    file = open(output_file, "a")
     # file = open("../data/testOutput.csv","a")
-    f = csv.writer(file,quotechar='"')
+    f = csv.writer(file, quotechar='"')
 
     listData = rawData['list']
 
@@ -87,7 +86,9 @@ def parseJSONFile(JSONFile, output_file):
         weather_main = hourlyRecord['weather'][0]['main']
         weather_description = hourlyRecord['weather'][0]['description']
         clouds = hourlyRecord['clouds']['all']
-        f.writerow([date_unix,main_temp,main_pressure,main_humidity,main_temp_min,main_temp_max,wind_speed,wind_deg,weather_main,weather_description,clouds])
+        f.writerow([date_unix, main_temp, main_pressure, main_humidity, \
+            main_temp_min, main_temp_max, wind_speed, wind_deg, \
+            weather_main, weather_description, clouds])
 
     logger.debug('Finished parsing file')
     file.close()
@@ -106,19 +107,20 @@ def extractor(start_time, end_time):
     return JSONFile
 
 
-def write_json_to_file(filename, json):
-    # writes json to a file
-    logger.debug('Writing json to file '+filename)
+def write_json_to_file(filename, json_text):
+    # writes json_text to a file
+    logger.debug('Writing json_text to file '+filename)
     f = open(filename, 'w')
     try:
-        json = str(json)
-        json = json[2:len(json)]
-        json = json[0:len(json)-3]
-        f.write(json)
+        json_text = str(json_text)
+        json_text = json_text[2:len(json_text)]
+        json_text = json_text[0:len(json_text)-3]
+        f.write(json_text)
     except Exception:
         logger.warning('Error writing to file')
         raise
         return False
+    
     f.close()
     logger.debug('Successfully wrote to file')
-    return True;
+    return True

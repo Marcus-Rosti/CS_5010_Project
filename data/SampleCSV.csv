@@ -113,3 +113,5 @@ date_unix, main_temp, main_pressure, main_humidity, main_temp_min, main_temp_max
 1438775082,295.25,1015,94,294.15,297.15,1.51,291.504,Mist,mist,1
 1438778638,297.15,1015,74,295.15,299.15,1.5,300,Mist,mist,75
 1438782389,299.22,1015,61,295.93,301.15,2.1,330,Clouds,broken clouds,75
+1438782389,299.22,1015,61,295.93,301.15,2.1,330,Clouds,broken clouds,75
+1438785752,300.92,1016,74,299.15,302.15,2.1,300,Clear,sky is clear,1
