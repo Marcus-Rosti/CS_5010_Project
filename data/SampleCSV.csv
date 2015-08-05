@@ -1,5 +1,5 @@
-date_unix, main_temp, main_pressure, main_humidity, main_temp_min, main_temp_max, wind_speed, wind_deg, weather_main, weather_description
-1438217161,300.32,1015,74,299.25,302.15,2.6,180,Clouds,scattered clouds
+date_unix, main_temp, main_pressure, main_humidity, main_temp_min, main_temp_max, wind_speed, wind_deg, weather_main, weather_description, clouds
+1438217161,300.32,1015,74,299.25,302.15,2.6,180,Clouds,scattered clouds,40
 1438217162,300.25,1015,74,298.71,302.15,2.1,180,Clouds,scattered clouds,40
 1438220865,298.53,1016,100,297.59,299.15,2.47,174.011,Clear,sky is clear,1
 1438224284,298.19,1015,83,297.04,300.15,2.6,140,Mist,mist,20
