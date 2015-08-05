@@ -11,7 +11,7 @@ def parseJSONFile(JSONFile):
 	f = csv.writer(file,quotechar='"')
 
 	if not (os.path.isfile("../data/testOutput.csv")):
-		headers=["date_unix","main_temp","main_pressure","main_humidity","main_temp_min","main_temp_max","wind_speed","wind_deg","weather_main","weather_description"]
+		headers=["date_unix","main_temp","main_pressure","main_humidity","main_temp_min","main_temp_max","wind_speed","wind_deg","weather_main","weather_description","clouds"]
 		f.writeheader()
 
 	listData = rawData['list']
@@ -28,7 +28,8 @@ def parseJSONFile(JSONFile):
 		wind_deg = hourlyRecord['wind']['deg']
 		weather_main = hourlyRecord['weather'][0]['main']
 		weather_description = hourlyRecord['weather'][0]['description']
-		f.writerow([date_unix,main_temp,main_pressure,main_humidity,main_temp_min,main_temp_max,wind_speed,wind_deg,weather_main,weather_description])
+		clouds  = hourlyRecord['clouds']['all']
+		f.writerow([date_unix,main_temp,main_pressure,main_humidity,main_temp_min,main_temp_max,wind_speed,wind_deg,weather_main,weather_description,clouds])
 	
 	file.close()
 	

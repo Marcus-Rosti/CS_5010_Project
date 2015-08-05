@@ -52,9 +52,8 @@ def gapFiller(filename):
     #Finds the largest gap in the record
     #returns the first and last date on either side of the gap, in unix time
     #Returns zeros  if nothing larger than an hour
-        
     #reads in all the times
-    times = [] 
+    times = []
     with open(filename) as csvfile:
         lines = csv.reader(csvfile)
         next(lines, None) #skips the header
@@ -69,7 +68,7 @@ def gapFiller(filename):
             j = i
             g = times[i+1]-times[i]
         i += 1
-    
+
     #See if the gap is larger than an hour
     if g <= 3600:
         return 0, 0
@@ -98,7 +97,8 @@ def parseJSONFile(JSONFile, output_file):
         wind_deg = hourlyRecord['wind']['deg']
         weather_main = hourlyRecord['weather'][0]['main']
         weather_description = hourlyRecord['weather'][0]['description']
-        f.writerow([date_unix,main_temp,main_pressure,main_humidity,main_temp_min,main_temp_max,wind_speed,wind_deg,weather_main,weather_description])
+        clouds = hourlyRecord['clouds']['all']
+        f.writerow([date_unix,main_temp,main_pressure,main_humidity,main_temp_min,main_temp_max,wind_speed,wind_deg,weather_main,weather_description,clouds])
 
     logger.debug('Finished parsing file')
     file.close()

@@ -1,1 +1,0 @@
-{"message":"","cod":"200","city_id":4752046,"calctime":0.0542,"cnt":1,"list":[{"main":{"temp":302.01,"pressure":1015,"humidity":66,"temp_min":300.93,"temp_max":303.15},"wind":{"speed":5.1,"deg":210},"clouds":{"all":40},"weather":[{"id":802,"main":"Clouds","description":"scattered clouds","icon":"03d"}],"dt":1438699857}]}
