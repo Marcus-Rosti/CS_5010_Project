@@ -12,7 +12,7 @@
 import logging
 import common_lib
 import time
-import sys, getopt
+import sys, getopt, os
 
 #intialize logging
 LOGGER = logging.getLogger(__name__)
@@ -25,9 +25,10 @@ def run_update_process(update_file):
         Function takes in a file to update and appends data, if it's available
         The parameter should be a direct link to the file
     """
-    LOGGER.debug('setting filename to ../data/testOutput.csv')
     # files to use
     output_json = '../data/temp_example.json'
+    if not os.path.exists(output_json):
+        open(output_json, 'w').close()
 
     (start_time, end_time) = common_lib.update(update_file)
     LOGGER.debug('recieved times from date function')
@@ -41,6 +42,7 @@ def run_update_process(update_file):
     common_lib.write_json_to_file(output_json, extracted_json)
 
     common_lib.parseJSONFile(output_json, update_file)
+    os.remove(output_json) # remove this file, unneeded
     LOGGER.debug('csv was successfully updated')
 
 def run_init_process():
@@ -50,43 +52,54 @@ def run_init_process():
     """
     file = "../data/"+str(time.time())+"_data.csv"
     LOGGER.debug('Initializeing a new file: ' + file)
-    f = open(file, 'w')
+    empty_file = open(file, 'w')
     headers = "date_unix, main_temp, main_pressure, main_humidity,\
      main_temp_min, main_temp_max, wind_speed, wind_deg, weather_main,\
      weather_description, clouds"
-    f.write(headers)
-    f.close()
+    empty_file.write(headers)
+    empty_file.close()
 
     run_update_process(file)
 
 
 def main(argv):
-    """ when controller.py is run, sends results to the empty
+    """ Runs controller from the command line
+
+        Takes a command line via argv
+
+        The general usage here:
+            python controller.py [-h] -i <inputfile>
+        As far as I can tell, this handles errors quite well and will
+            print out help if the user makes some sort of error in entry
+
+        -i : required.  Takes a file location
     """
     LOGGER.debug('Taking command line parameters')
     infile = ''
     try:
-        opts = getopt.getopt(argv, "hi:o:", ["ifile="])
+        opts, args = getopt.getopt(argv, "hi:", ["ifile="])
     except getopt.GetoptError:
-        print('controller.py <inputfile>')
-        sys.exit(2)
-    try:
-        for arg in opts:
-            if arg == '-h':
-                print('test.py <inputfile>')
-                sys.exit()
-            else:
-                infile = arg
-    except:
-        LOGGER.debug('There\'s something werid...')
+        LOGGER.debug('There\'s some error reading in command line')
         sys.exit()
-    finally:
-        if infile != '':
-            LOGGER.debug('No inputfile, running init')
-            run_init_process()
-        else:
-            run_update_process("../data/SampleCSV.csv")
+        raise
+    try:
+        for opt, arg in opts:
+            if opt == '-h':
+                LOGGER.debug('Printing out help and exiting')
+                print('python controller.py [-h] -i <inputfile>')
+                sys.exit()
+            elif opt == '-i':
+                infile = arg
+                LOGGER.debug('Using file: '+infile)
+    except Exception:
+        LOGGER.debug('Exiting!')
+        raise
 
+    if infile == '':
+        LOGGER.debug('No inputfile, running init')
+        run_init_process()
+    else:
+        run_update_process(infile)
     return 0
 
 
