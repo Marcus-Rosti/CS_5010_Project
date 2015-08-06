@@ -67,7 +67,7 @@ def gapFiller(filename):
     if g <= 3600:
         return 0, 0
     else:
-        return times[j], times[j+1]
+        return times[j]+300, times[j+1]-300
 
 def parseJSONFile(JSONFile, output_file):
     logger.debug('Parsing file: ' + JSONFile)
