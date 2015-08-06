@@ -5,19 +5,19 @@
 """
 
 import user_interface_lib as uil
-import controller
 
 LOGGER = logging.getLogger(__name__)
-logging.basicConfig(filename='../logs/user_interface.log', level=logging.DEBUG, \
+logging.basicConfig(filename='../logs/user_interface.log', level=logging.DEBUG,\
     format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
 
-print_menu():
+def print_menu():
     print("MENU!!!!!!")
 
-main():
+def main():
     LOGGER.debug("Running main")
     uil.start_up("../SampleCSV.csv")
-    print_menu():
+    print_menu()
 
-if "__name__" == "main":
+if __name__ == "__main__":
+    LOGGER.info('\n\n\n\n\n\n')
     main()
