@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Aug  5 11:52:29 2015
-
-@author: temp
-"""
-
 import json
 import csv
 import os.path
@@ -44,7 +37,7 @@ def update(filename):
     #check to see if the times are an hour apart or more
 
     if end_time-start_time > 3600:
-        return start_time, end_time
+        return start_time+300, end_time
     else:
         return 0, 0
 
