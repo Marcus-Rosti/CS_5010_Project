@@ -9,9 +9,10 @@
     Logs print to $Project_home/logs/controller.log
 """
 
-#import common_lib.py
 import logging
 import common_lib
+import time
+import sys, getopt
 
 #intialize logging
 LOGGER = logging.getLogger(__name__)
@@ -47,15 +48,48 @@ def run_init_process():
 
         This deals with the case of no file passed via clp
     """
-    file = "../data/"
+    file = "../data/"+str(time.time())+"_data.csv"
+    LOGGER.debug('Initializeing a new file: ' + file)
+    f = open(file, 'w')
+    headers = "date_unix, main_temp, main_pressure, main_humidity,\
+     main_temp_min, main_temp_max, wind_speed, wind_deg, weather_main,\
+     weather_description, clouds"
+    f.write(headers)
+    f.close()
 
-def main():
+    run_update_process(file)
+
+
+def main(argv):
     """ when controller.py is run, sends results to the empty
     """
-    run_update_process("../data/SampleCSV.csv")
+    LOGGER.debug('Taking command line parameters')
+    infile = ''
+    try:
+        opts = getopt.getopt(argv, "hi:o:", ["ifile="])
+    except getopt.GetoptError:
+        print('controller.py <inputfile>')
+        sys.exit(2)
+    try:
+        for arg in opts:
+            if arg == '-h':
+                print('test.py <inputfile>')
+                sys.exit()
+            else:
+                infile = arg
+    except:
+        LOGGER.debug('There\'s something werid...')
+        sys.exit()
+    finally:
+        if infile != '':
+            LOGGER.debug('No inputfile, running init')
+            run_init_process()
+        else:
+            run_update_process("../data/SampleCSV.csv")
+
+    return 0
 
 
 if __name__ == "__main__":
     LOGGER.info('\n\n\n\n\n\n')
-    LOGGER.info('Running controller with default inputs')
-    main()
+    main(sys.argv[1:])
