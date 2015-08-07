@@ -55,6 +55,3 @@ def option_4():
     """
     return "write your own function!"
 
-#test code TODO Delete this:
-start_up("../data/SampleCSV.csv")
-print(WEATHER_DATA)
