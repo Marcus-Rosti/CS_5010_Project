@@ -7,22 +7,37 @@
 
 import controller
 import logging
+<<<<<<< HEAD
 import datetime
 import calendar
+=======
+import pandas as pd
+>>>>>>> 591ce5ab48201d819ea60046df8a6e284961022c
 
 LOGGER = logging.getLogger(__name__)
 logging.basicConfig(filename='../logs/user_interface.log', level=logging.DEBUG, \
     format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
 
-weather_data_frame = ''
+
+WEATHER_DATA = None
 
 def start_up(data_file):
     """ Sets up data frame
-
         start_up takes in a datafile and spits out a global data frame that
             each of the subfunctions will use
     """
-    controller.run_update_process(filename)
+    
+    LOGGER.debug("Updating data file with latest values.")
+    controller.run_update_process(data_file)
+    LOGGER.debug("Update complete");
+
+    LOGGER.debug("Reading data file into Pandas Data Frame")
+    try:
+        global WEATHER_DATA 
+        WEATHER_DATA = pd.read_csv(data_file)
+        LOGGER.debug("Data Frame created")
+    except:
+        return False
     return True
 
 def option_1():
@@ -45,6 +60,7 @@ def option_4():
     """
     return "write your own function!"
 
+<<<<<<< HEAD
 def unix_to_datetime(n):
     # Takes in unix date as an int, returns date and time as a string
     return datetime.datetime.fromtimestamp(n).strftime('%m/%d/%Y %H:%M:%S')
@@ -65,3 +81,5 @@ def kelvin_to_fahrenheit(t):
 def fahrenheit_to_kelvin(t):
     #Converts fahrenheit to kelvin
     return (t-32)/1.8 + 273
+=======
+>>>>>>> 591ce5ab48201d819ea60046df8a6e284961022c
