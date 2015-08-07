@@ -6,6 +6,7 @@
 """
 
 import controller
+import logging
 
 LOGGER = logging.getLogger(__name__)
 logging.basicConfig(filename='../logs/user_interface.log', level=logging.DEBUG, \
@@ -14,30 +15,30 @@ logging.basicConfig(filename='../logs/user_interface.log', level=logging.DEBUG, 
 weather_data_frame = ''
 
 def start_up(data_file):
-""" Sets up data frame
+    """ Sets up data frame
 
-    start_up takes in a datafile and spits out a global data frame that
-        each of the subfunctions will use
-"""
+        start_up takes in a datafile and spits out a global data frame that
+            each of the subfunctions will use
+    """
     controller.run_update_process(filename)
     return True
 
 def option_1():
-""" Returns a string that does...
-"""
+    """ Returns a string that does...
+    """
     return "write your own function!"
 
 def option_2():
-""" Returns a string that does...
-"""
+    """ Returns a string that does...
+    """
     return "write your own function!"
 
 def option_3():
-""" Returns a string that does...
-"""
+    """ Returns a string that does...
+    """
     return "write your own function!"
 
 def option_4():
-""" Returns a string that does...
-"""
+    """ Returns a string that does...
+    """
     return "write your own function!"
