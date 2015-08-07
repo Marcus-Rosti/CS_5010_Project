@@ -7,12 +7,9 @@
 
 import controller
 import logging
-<<<<<<< HEAD
 import datetime
 import calendar
-=======
 import pandas as pd
->>>>>>> 591ce5ab48201d819ea60046df8a6e284961022c
 
 LOGGER = logging.getLogger(__name__)
 logging.basicConfig(filename='../logs/user_interface.log', level=logging.DEBUG, \
@@ -60,7 +57,6 @@ def option_4():
     """
     return "write your own function!"
 
-<<<<<<< HEAD
 def unix_to_datetime(n):
     # Takes in unix date as an int, returns date and time as a string
     return datetime.datetime.fromtimestamp(n).strftime('%m/%d/%Y %H:%M:%S')
@@ -81,5 +77,3 @@ def kelvin_to_fahrenheit(t):
 def fahrenheit_to_kelvin(t):
     #Converts fahrenheit to kelvin
     return (t-32)/1.8 + 273
-=======
->>>>>>> 591ce5ab48201d819ea60046df8a6e284961022c
