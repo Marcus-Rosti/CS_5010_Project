@@ -1,3 +1,18 @@
+""" Common library that contains methods used to fetch and prepare weather data
+    
+    List of methods:
+		update(filename) - returns start and end times of missing weather data. Indicates date range for which data needs to be fetched.
+		gapFiller(filename) - finds and returns gaps in the data.
+		extractor(start_time, end_time) - fetches weather data between start_time and end_time. Returns weather data in JSON format.
+		write_json_to_file(filename, json_text) - writes a string in json format to a file.
+		parseJSONFile(JSON_File, output_file) - reads a JSON File, extracts relevant weather data and appends data to a CSV file
+		
+    These methods are called from controller.py
+
+    Logs print to $Project_home/logs/controller.log
+"""
+
+
 import json
 import csv
 import os.path
@@ -11,6 +26,18 @@ logging.basicConfig(filename='../logs/controller.log', level=logging.DEBUG, \
     format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
 
 def update(filename):
+    """
+        Reads a CSV input file and returns the time range for which data is missing at the end of the file. i.e. (Current time - last available time)
+        This time range can be used to fetch required data from the API.
+
+        Parameters:
+            filename: CSV file containing previous weather data. 
+                      If previous weather data is not available, the file should contain just the header row.
+
+        Return Values:
+            start_time, end_time: Unix Time values, between which data is not available in the CSV file.
+        
+    """
     logger.debug('Updating dates for file: '+filename)
     #returns last date and current date in unix time, zeros if within an hour
 
@@ -42,6 +69,16 @@ def update(filename):
         return 0, 0
 
 def gapFiller(filename):
+    """
+        Reads a CSV input file and returns the time range of the largest gap in the existing data.
+        This time range can be used to fetch required data from the API.
+
+        Parameters:
+            filename:               CSV file containing previous weather data. 
+        Return Values:
+            start_time, end_time:   Unix Time values, between which data is missing in the CSV file.
+        
+    """
     #Finds the largest gap in the record
     #returns the first and last date on either side of the gap, in unix time
     #Returns zeros  if nothing larger than an hour
@@ -70,6 +107,18 @@ def gapFiller(filename):
         return times[j]+300, times[j+1]-300
 
 def parseJSONFile(JSONFile, output_file):
+    """
+        Reads a JSON File, extracts relevant weather data and appends data to a CSV file. 
+        The following data is extracted from JSON:
+                Unix Time, Temperature, Pressure, Humidity, Minimum Temperature, Maximum Temperature, Wind Speed, Wind Degree, Weather, Weather Description, Cloud Cover
+
+        Parameters:
+           JSONFile:    JSON file in standard format containing weather data. 
+           output_file: CSV file to which results should be appended.
+        
+        No Return Values
+        
+    """
     logger.debug('Parsing file: ' + JSONFile)
     with open(JSONFile) as datafile:
         rawData = json.load(datafile)
@@ -100,6 +149,17 @@ def parseJSONFile(JSONFile, output_file):
     file.close()
 
 def extractor(start_time, end_time):
+    """
+        Fetches weather data between a specified time range from Open Weather Map API (http://openweathermap.org/)
+
+        Parameters:
+           start_time:  Unix Time which specifies the start of the time range for which weather data should be fetched. 
+           end_time:    Unix Time which specifies the end of the time range for which weather data should be fetched.
+        
+        Return Values:
+           string containing weather data encoded in JSON
+        
+    """
     logger.debug('Getting json between '+str(start_time)+' and '+str(end_time))
     # Create the url that needs to access
     url = "http://api.openweathermap.org/data/2.5/history/city?id=4752046&type=hour&start="+str(start_time)+"&end="+str(end_time)
@@ -114,6 +174,16 @@ def extractor(start_time, end_time):
 
 
 def write_json_to_file(filename, json_text):
+    """
+        Writes a string containing encoded JSON data to a JSON file.
+        
+        Parameters:
+            filename:   Output JSON file to write.
+            json_text:  String containing encoded JSON Data.
+        
+        No Return Values.
+
+    """
     # writes json_text to a file
     logger.debug('Writing json_text to file '+filename)
     f = open(filename, 'w')
