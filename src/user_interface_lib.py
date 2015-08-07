@@ -7,6 +7,8 @@
 
 import controller
 import logging
+import datetime
+import calendar
 
 LOGGER = logging.getLogger(__name__)
 logging.basicConfig(filename='../logs/user_interface.log', level=logging.DEBUG, \
@@ -42,3 +44,24 @@ def option_4():
     """ Returns a string that does...
     """
     return "write your own function!"
+
+def unix_to_datetime(n):
+    # Takes in unix date as an int, returns date and time as a string
+    return datetime.datetime.fromtimestamp(n).strftime('%m/%d/%Y %H:%M:%S')
+ 
+def unix_to_date(n):
+    # Takes in unix date as an int, returns date as a string
+    return datetime.datetime.fromtimestamp(n).strftime('%m/%d/%Y')
+    
+def date_to_unix(s):
+    #Takes in date as a sting in m/d/y format and returns unix date as an int
+    d = datetime.datetime.strptime(s, '%m/%d/%Y')
+    return calendar.timegm(d.timetuple())
+    
+def kelvin_to_fahrenheit(t):
+    #Converts kelvin to fahrenheit
+    return 1.8*(t-273)+32
+    
+def fahrenheit_to_kelvin(t):
+    #Converts fahrenheit to kelvin
+    return (t-32)/1.8 + 273
