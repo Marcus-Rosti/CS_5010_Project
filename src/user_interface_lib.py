@@ -1,7 +1,14 @@
 """ The controller for user_interface
 
     This is a library of functions that will be used by user_interface
-
+    
+    List of Methods:
+        unix_to_datetime(n) - takes a unix time and turns it into time and date.
+        unix_to_date(n) - takes a unix time and turns it into a date only.
+        date_to_unix(s) - takes a date and turns it into unix time
+        kelvin_to_fahrenheit(t) - converts a kelvin temperature to fahrenheit.
+        fahrenheit_to_kelvin(t) - converts a farhenheit temperature to kelvin.
+    
     This file should not be run
 """
 
@@ -58,22 +65,52 @@ def option_4():
     return "write your own function!"
 
 def unix_to_datetime(n):
-    # Takes in unix date as an int, returns date and time as a string
+    '''
+    Takes in unix date as an integer and returns date and time as a string
+    
+    Parameters: n - unix timestamp as an integer
+    
+    Returns: A string in the format m/d/y h:m:s
+    '''
     return datetime.datetime.fromtimestamp(n).strftime('%m/%d/%Y %H:%M:%S')
  
 def unix_to_date(n):
-    # Takes in unix date as an int, returns date as a string
+    '''
+    Takes in unix date as an integer, and returns just the date as a string
+    
+    Parameters: n - unix timestamp as an integer
+    
+    Returns: A string in the format m/d/y
+    '''
     return datetime.datetime.fromtimestamp(n).strftime('%m/%d/%Y')
     
 def date_to_unix(s):
-    #Takes in date as a sting in m/d/y format and returns unix date as an int
+    '''
+    Takes in date and returns unix date as an integer
+    
+    Parameters: s -  The date as a sting in m/d/y format 
+    
+    Returns: Unix timestamp as an integer
+    '''
     d = datetime.datetime.strptime(s, '%m/%d/%Y')
     return calendar.timegm(d.timetuple())
     
 def kelvin_to_fahrenheit(t):
-    #Converts kelvin to fahrenheit
+    '''
+    Converts kelvin to fahrenheit
+    
+    Parameters: t - Kelvin temperature as an integer
+    
+    Returns: Farhernheit temperature as an integer
+    '''
     return 1.8*(t-273)+32
     
 def fahrenheit_to_kelvin(t):
-    #Converts fahrenheit to kelvin
+    '''
+    Converts fahrenheit to kelvin
+    
+    Parameters: t - Farhernheit temperature as an integer
+    
+    Results: Kelvin temperature as an integer
+    '''
     return (t-32)/1.8 + 273
