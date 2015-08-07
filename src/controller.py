@@ -25,16 +25,16 @@ def run_update_process(update_file):
         Function takes in a file to update and appends data, if it's available
         The parameter should be a direct link to the file
     """
-    # files to use
-    output_json = '../data/temp_example.json'
-    if not os.path.exists(output_json):
-        open(output_json, 'w').close()
-
     (start_time, end_time) = common_lib.update(update_file)
     LOGGER.debug('recieved times from date function')
     if end_time == 0:
         LOGGER.debug('No need to update')
         return
+        
+    # files to use
+    output_json = '../data/temp_example.json'
+    if not os.path.exists(output_json):
+        open(output_json, 'w').close()
 
     extracted_json = common_lib.extractor(start_time, end_time)
     LOGGER.debug('received json from extract funciton')

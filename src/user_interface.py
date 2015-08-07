@@ -63,7 +63,9 @@ def accept_user_input():
 def initalize_library():
     """ Calls the setup function
     """
+    print_breaks()
     print('Initializing...')
+    uil.start_up('../data/SampleCSV.csv')
     return True
 
 
@@ -139,7 +141,6 @@ def main():
     LOGGER.debug("Running main")
     print_welcome()
     initalize_library()
-    #uil.start_up("../data/SampleCSV.csv")
     selection = ''
     while True:
         print_menu()
