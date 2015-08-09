@@ -53,9 +53,10 @@ def run_init_process():
     file = "../data/"+str(time.time())+"_data.csv"
     LOGGER.debug('Initializeing a new file: ' + file)
     empty_file = open(file, 'w')
-    headers = "date_unix, main_temp, main_pressure, main_humidity,\
-     main_temp_min, main_temp_max, wind_speed, wind_deg, weather_main,\
-     weather_description, clouds"
+    headers = "date_unix,main_temp,main_pressure,main_humidity,\
+main_temp_min,main_temp_max,wind_speed,wind_deg,weather_main,\
+weather_description,clouds"
+
     empty_file.write(headers)
     empty_file.close()
 
