@@ -39,6 +39,11 @@ def start_up(data_file):
     try:
         global WEATHER_DATA 
         WEATHER_DATA = pd.read_csv(data_file)
+        WEATHER_DATA['datetime_std'] = WEATHER_DATA['date_unix'].apply(unix_to_datetime) 
+        WEATHER_DATA['date_std'] = WEATHER_DATA['date_unix'].apply(unix_to_date)
+        WEATHER_DATA['main_temp_F'] = WEATHER_DATA['main_temp'].apply(kelvin_to_fahrenheit)
+        WEATHER_DATA['main_temp_min_F'] = WEATHER_DATA['main_temp_min'].apply(kelvin_to_fahrenheit)
+        WEATHER_DATA['main_temp_max_F'] = WEATHER_DATA['main_temp_max'].apply(kelvin_to_fahrenheit)
         LOGGER.debug("Data Frame created")
     except:
         return False
@@ -115,3 +120,6 @@ def fahrenheit_to_kelvin(t):
     '''
     return (t-32)/1.8 + 273
 
+#TEST TODO REMOVE
+start_up("../data/SampleCSV.csv")
+print(WEATHER_DATA)
