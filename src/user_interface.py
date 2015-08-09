@@ -28,7 +28,7 @@ def print_menu():
     LOGGER.debug('Printing menu')
     print_breaks()
     print("Select and option from below")
-    print("\t1) Option 1")
+    print("\t1) Get today's weather")
     print("\t2) Option 2")
     print("\t3) Option 3")
     print("\t4) Get average temperatures")
@@ -113,7 +113,7 @@ def deal_with_user_input(selection):
     if selection == 0:
         print_goodbye()
     elif selection == 1:
-        print('Processing option 1')
+        print(uil.today_weather())
         # output = uil.option_1()
     elif selection == 2:
         print('Processing option 2')

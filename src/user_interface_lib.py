@@ -50,10 +50,102 @@ def start_up(data_file):
         return False
     return True
 
-def option_1():
-    """ Returns a string that does...
+def today_weather():
+    """ Returns a string that does contain most up-to-date weather information
     """
-    return "write your own function!"
+ 
+    # Read in required variables   
+    time = [] 
+    [time.append(WEATHER_DATA[t]) for t in range(len(WEATHER_DATA['date_unix']))]
+    ave_temp = []
+    [ave_temp.append(WEATHER_DATA['main_temp'][t]) for t in range(len(WEATHER_DATA['main_temp']))]
+    ave_pressure = []
+    [ave_pressure.append(WEATHER_DATA['main_pressure'][t]) for t in range(len(WEATHER_DATA['main_pressure']))]
+    ave_humidity = []
+    [ave_humidity.append(WEATHER_DATA['main_humidity'][t]) for t in range(len(WEATHER_DATA['main_humidity']))]
+    min_temp = []
+    [min_temp.append(WEATHER_DATA['main_temp_min'][t]) for t in range(len(WEATHER_DATA['main_temp_min']))]
+    max_temp = []
+    [max_temp.append(WEATHER_DATA['main_temp_max'][t]) for t in range(len(WEATHER_DATA['main_temp_max']))] 
+    wind_speed = []
+    [wind_speed.append(WEATHER_DATA['wind_speed'][t]) for t in range(len(WEATHER_DATA['wind_speed']))]
+    ave_clouds = []
+    [ave_clouds.append(WEATHER_DATA['clouds'][t]) for t in range(len(WEATHER_DATA['clouds']))]    
+    
+    # Find the latest time
+    last_time = unix_to_datetime(time[-1])
+
+    # Calculate the average temperature for today
+    n = s = 0
+    for i in range(len(ave_temp)):
+        n += 1
+        s += ave_temp[i]
+    
+    ave_day_temp = kelvin_to_fahrenheit(s/n) # calculate the average temperature and convert to fahrenheit
+    ave_day_temp = '%.2f' % ave_day_temp # convert to a string with two decimal places
+    
+    # Find the minimum temperature of the day
+    n = min = 0
+    for i in range(len(min_temp)):
+        if min > min_temp[i]:
+            min = min_temp[i]
+    
+    min_day_temp = kelvin_to_fahrenheit(min) # convert the minimum temperature to fahrenheit
+    min_day_temp = '%.2f' % min_day_temp # convert to a string with two decimal places
+    
+    # Find the maximum temperature of the day
+    n = max = 0
+    for i in range(len(max_temp)):
+        if max < max_temp[i]:
+            max = max_temp[i]
+    
+    max_day_temp = kelvin_to_fahrenheit(max) # convert the maximum temperature to fahrenheit
+    max_day_temp = '%.2f' % max_day_temp # convert to a string with two decimal places
+    
+    # Calculate the average pressure for today
+    n = s = 0
+    for i in range(len(ave_pressure)):
+        n += 1
+        s += ave_pressure[i]
+    
+    ave_day_pressure = s/n # calculate the average pressure
+    ave_day_pressure = '%.2f' % ave_day_pressure # convert to a string with two decimal places
+    
+    # Calculate the average humidity for today
+    n = s = 0
+    for i in range(len(ave_humidity)):
+        n += 1
+        s += ave_humidity[i]
+    
+    ave_day_humidity = s/n # calculate the average humidity
+    ave_day_humidity = '%.2f' % ave_day_humidity # convert to a string with two decimal places
+    
+    # Calculate the average wind speed for today
+    n = s = 0
+    for i in range(len(wind_speed)):
+        n += 1
+        s += wind_speed[i]
+    
+    ave_day_wind_speed = s/n # calculate the average wind speed
+    ave_day_wind_speed = '%.2f' % ave_day_wind_speed # convert to a string with two decimal places
+    
+     # Calculate the average cloud coverage for today
+    n = s = 0
+    for i in range(len(ave_clouds)):
+        n += 1
+        s += ave_clouds[i]
+    
+    ave_day_clouds = s/n # calculate the average cloud coverage
+    ave_day_clouds = '%.2f' % ave_day_clouds # convert to a string with two decimal places
+    
+    print_out = "Up to"+last_time+", the average temperature for today is"+ave_day_temp
+                +", with a minimum temperature as"+min_day_temp+"and a maximum temperature as"+max_day_temp
+                +". The average pressure is"+ave_day_pressure+", average humidity is"+ave_day_humidity
+                +"the average wind speed is"+ave_day_wind_speed+", and the average cloud coverage for today is"
+                +ave_day_clouds+"%."
+    
+    return print_out
+
 
 def option_2():
     """ Returns a string that does...

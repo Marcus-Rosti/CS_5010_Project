@@ -26,3 +26,8 @@ date_unix,main_temp,main_pressure,main_humidity,main_temp_min,main_temp_max,wind
 1439135326,299.73,1017,65,297.59,301.15,1.5,110,Clear,sky is clear,1
 1439138824,300.64,1017,51,300.15,301.15,2.1,60,Clouds,scattered clouds,40
 1439142285,301.2,1016,51,300.93,302.04,1.5,60,Clouds,scattered clouds,40
+1439145883,301.48,1017,48,300.37,302.15,2.6,190,Clouds,broken clouds,75
+1439149620,301.59,1016,51,301.15,302.15,3.1,160,Clouds,broken clouds,75
+1439153271,301.34,1016,62,299.82,302.15,1.5,150,Clouds,scattered clouds,40
+1439156749,301.58,1016,51,300.93,302.15,4.1,150,Clouds,scattered clouds,40
+1439160345,301.2,1015,54,300.15,302.15,3.6,150,Clouds,broken clouds,75
