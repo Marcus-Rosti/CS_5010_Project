@@ -31,8 +31,8 @@ def print_menu():
     print("\t1) Option 1")
     print("\t2) Option 2")
     print("\t3) Option 3")
-    print("\t4) Option 4")
-    print("\t5) Option 5")
+    print("\t4) Get average temperatures")
+    print("\t5) Get data range")
     print("\t0) Exit")
     print_breaks()
     return True
@@ -122,10 +122,10 @@ def deal_with_user_input(selection):
         print('Processing option 3')
         # output = uil.option_3()
     elif selection == 4:
-        print('Processing option 4')
+        print(uil.ave_temps())
         # output = uil.option_4()
     elif selection == 5:
-        print('Processing option 5')
+        print(uil.date_range())
         # output = uil.option_5()
     else:
         LOGGER.debug('Definitely shouldn\'t have ended up here')
