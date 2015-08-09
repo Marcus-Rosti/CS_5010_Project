@@ -1,4 +1,5 @@
-date_unix,main_temp,main_pressure,main_humidity,main_temp_min,main_temp_max,wind_speed,wind_deg,weather_main,weather_description,clouds1439048707,295.95,1014,78,294.15,298.15,6.2,360,Clouds,overcast clouds,90
+date_unix,main_temp,main_pressure,main_humidity,main_temp_min,main_temp_max,wind_speed,wind_deg,weather_main,weather_description,clouds
+1439048707,295.95,1014,78,294.15,298.15,6.2,360,Clouds,overcast clouds,90
 1439052395,296.4,1015,83,294.15,299.15,4.1,350,Rain,heavy intensity rain,90
 1439056022,297.87,1014,88,294.15,301.15,4.1,10,Rain,light rain,75
 1439059394,299.35,1014,74,298.15,300.37,5.1,10,Clouds,broken clouds,75

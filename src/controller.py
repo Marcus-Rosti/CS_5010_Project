@@ -55,7 +55,7 @@ def run_init_process():
     empty_file = open(file, 'w')
     headers = "date_unix,main_temp,main_pressure,main_humidity,\
 main_temp_min,main_temp_max,wind_speed,wind_deg,weather_main,\
-weather_description,clouds"
+weather_description,clouds\n"
 
     empty_file.write(headers)
     empty_file.close()
