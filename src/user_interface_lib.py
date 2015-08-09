@@ -120,6 +120,3 @@ def fahrenheit_to_kelvin(t):
     '''
     return (t-32)/1.8 + 273
 
-#TEST TODO REMOVE
-start_up("../data/SampleCSV.csv")
-print(WEATHER_DATA)
