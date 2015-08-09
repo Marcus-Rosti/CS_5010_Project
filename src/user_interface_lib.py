@@ -17,6 +17,7 @@ import logging
 import datetime
 import calendar
 import pandas as pd
+import time
 
 LOGGER = logging.getLogger(__name__)
 logging.basicConfig(filename='../logs/user_interface.log', level=logging.DEBUG, \
