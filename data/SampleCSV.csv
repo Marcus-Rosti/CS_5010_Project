@@ -31,3 +31,4 @@ date_unix,main_temp,main_pressure,main_humidity,main_temp_min,main_temp_max,wind
 1439153271,301.34,1016,62,299.82,302.15,1.5,150,Clouds,scattered clouds,40
 1439156749,301.58,1016,51,300.93,302.15,4.1,150,Clouds,scattered clouds,40
 1439160345,301.2,1015,54,300.15,302.15,3.6,150,Clouds,broken clouds,75
+1439163958,299.59,1015,58,297.59,301.15,2.6,170,Clouds,broken clouds,75

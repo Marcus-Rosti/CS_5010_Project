@@ -130,7 +130,7 @@ def deal_with_user_input(selection):
     else:
         LOGGER.debug('Definitely shouldn\'t have ended up here')
         sys.exit()
-    print(output)
+        #print(output)
     print_breaks()
     return True
 
