@@ -54,6 +54,8 @@ def update(filename):
         lines = csv.reader(csvfile)
         next(lines, None) #skips the header
         for line in lines:
+            if line == []:
+                continue
             times.append(int(line[0]))
 
 
