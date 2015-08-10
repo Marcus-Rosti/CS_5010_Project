@@ -18,6 +18,8 @@ import datetime
 import calendar
 import pandas as pd
 import time
+import matplotlib.pyplot as py
+import numpy as np
 
 LOGGER = logging.getLogger(__name__)
 logging.basicConfig(filename='../logs/user_interface.log', level=logging.DEBUG, \
@@ -107,11 +109,6 @@ def today_weather():
 
     return print_out
 
-
-def option_2():
-    """ Returns a string that does...
-    """
-    return "write your own function!"
 
 def date_range():
     '''
@@ -206,6 +203,68 @@ def ave_temps():
 
     #Print out temperatures
     return "The average temperature for "+name+" is "+mtemp+" F.  The average temperature this past week was "+wtemp+" F."
+
+def temp_graph():
+    '''
+    outputs a line graph of temperatures per day
+    '''
+    #Select desired data
+    temps = []
+    [temps.append([WEATHER_DATA['date_unix'][t], WEATHER_DATA['main_temp_F'][t], 
+     WEATHER_DATA["main_temp_min_F"][t], WEATHER_DATA['main_temp_max_F'][t]]) for t in range(len(WEATHER_DATA['date_unix']))]
+    
+    #Sort chronologically
+    temps.sort()
+    #Convert to m/d/y format
+    for i in range(len(temps)):
+        temps[i][0] = unix_to_date(temps[i][0])
+    
+    #Create average temp per day
+    day = []
+    atemp = []
+    mintemp = []
+    maxtemp = []
+    j = 0  #Keeps track of how many entries per day
+    for i in range(len(temps)):
+        if day == []: #initialize
+            day.append(temps[i][0])
+            atemp.append(temps[i][1])
+            mintemp.append(temps[i][2])
+            maxtemp.append(temps[i][3])
+            j += 1
+        elif day[-1] == temps[i][0]: #Add in values for same day
+            atemp[-1] += temps[i][1]
+            mintemp[-1] += temps[i][2]
+            maxtemp[-1] += temps[i][3]
+            j += 1
+        else:  #Create a new day and average the previous
+            atemp[-1] = atemp[-1]/j
+            mintemp[-1] = mintemp[-1]/j
+            maxtemp[-1] = maxtemp[-1]/j
+            day.append(temps[i][0])
+            atemp.append(temps[i][1])
+            mintemp.append(temps[i][2])
+            maxtemp.append(temps[i][3])
+            j = 1
+    #average the last day
+    atemp[-1] = atemp[-1]/j
+    mintemp[-1] = mintemp[-1]/j
+    maxtemp[-1] = maxtemp[-1]/j
+    
+    #Alter day to make readable
+    for i in range(len(day)):
+        if range(len(day))[i] % 50 != 0:
+            day[i] = ''
+    
+    py.plot(mintemp, 'b', label="Minimum Temperature")
+    py.plot(maxtemp, 'r', label='Maximum Temperature')
+    py.plot(atemp, 'g', label='Average Temperature')
+    py.legend(loc='best')
+    py.title("Daily Temperatures")
+    py.xticks(np.arange(len(day)), day)
+    py.xlabel("Date")
+    py.ylabel("Temperature (F)")
+    py.show()
 
 def unix_to_datetime(n):
     '''

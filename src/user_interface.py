@@ -29,9 +29,9 @@ def print_menu():
     print_breaks()
     print("Select and option from below")
     print("\t1) Get today's weather")
-    print("\t2) Option 2")
-    print("\t3) Option 3")
-    print("\t4) Get average temperatures")
+    print("\t2) Get Numerical Temperatures")
+    print("\t3) Get Graphical Temperatures")
+    print("\t4) Option 4")
     print("\t5) Get data range")
     print("\t0) Exit")
     print_breaks()
@@ -117,13 +117,12 @@ def deal_with_user_input(selection):
         output = uil.today_weather()
     elif selection == 2:
         print('Processing option ' + str(selection))
-        # output = uil.option_2()
+        output = uil.ave_temps()
     elif selection == 3:
         print('Processing option ' + str(selection))
-        # output = uil.option_3()
+        uil.temp_graph()
     elif selection == 4:
         print('Processing option ' + str(selection))
-        output = uil.ave_temps()
     elif selection == 5:
         print('Processing option ' + str(selection))
         output = uil.date_range()
