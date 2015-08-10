@@ -130,8 +130,8 @@ def deal_with_user_input(selection):
     else:
         LOGGER.debug('Definitely shouldn\'t have ended up here')
         sys.exit()
-    print(output)
     print_breaks()
+    print(output)
     return True
 
 
@@ -144,7 +144,12 @@ def main():
     selection = ''
     while True:
         print_menu()
-        selection = accept_user_input()
+        try:
+            selection = accept_user_input()
+        except KeyboardInterrupt:
+            LOGGER.debug('Handling KeyboardInterrupt')
+            print('')
+            print_goodbye()
         if selection == -1:
             continue
         deal_with_user_input(selection)

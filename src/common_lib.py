@@ -63,18 +63,26 @@ def update(filename):
     end_time = int(time.time())
 
     if times == []:
+        LOGGER.debug('No times were returned to update')
+        LOGGER.debug('Returning \n\tfirst: ' + str(0) + \
+                               '\n\tlast:  ' + str(end_time))
         return 0, end_time
     else:
         start_time = max(times)
 
-    LOGGER.debug('Returning \n\tfirst: ' + str(start_time) + \
-                           '\n\tlast:  ' + str(end_time))
+
 
     #check to see if the times are an hour apart or more
 
     if end_time-start_time > 3600:
-        return start_time+300, end_time
+        start_time = start_time+300
+        LOGGER.debug('Returning \n\tfirst: ' + str(start_time) + \
+                               '\n\tlast:  ' + str(end_time))
+        return start_time, end_time
     else:
+        LOGGER.debug('No need to update')
+        LOGGER.debug('Returning \n\tfirst: ' + str(0) + \
+                               '\n\tlast:  ' + str(0))
         return 0, 0
 
 def gap_filler(filename):

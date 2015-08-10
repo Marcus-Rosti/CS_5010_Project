@@ -51,6 +51,10 @@ def start_up(data_file):
     return True
 
 def get_average(list):
+    """ Helper function to calculate the average of a list
+        Param: A list of numbers
+        Returns: A single float or NAN depending on input
+    """
     if len(list) > 0:
         return float(sum(list))/len(list)
     else:
@@ -59,27 +63,20 @@ def get_average(list):
 def today_weather():
     """ Returns a string that does contain most up-to-date weather information
     """
+    todays_weather = WEATHER_DATA[WEATHER_DATA['date_std'] == unix_to_date(time.time())]
 
     # Read in required variables
-    time = []
-    [time.append(WEATHER_DATA['date_unix'][t]) for t in range(len(WEATHER_DATA['date_unix']))]
-    ave_temp = []
-    [ave_temp.append(WEATHER_DATA['main_temp'][t]) for t in range(len(WEATHER_DATA['main_temp']))]
-    ave_pressure = []
-    [ave_pressure.append(WEATHER_DATA['main_pressure'][t]) for t in range(len(WEATHER_DATA['main_pressure']))]
-    ave_humidity = []
-    [ave_humidity.append(WEATHER_DATA['main_humidity'][t]) for t in range(len(WEATHER_DATA['main_humidity']))]
-    min_temp = []
-    [min_temp.append(WEATHER_DATA['main_temp_min'][t]) for t in range(len(WEATHER_DATA['main_temp_min']))]
-    max_temp = []
-    [max_temp.append(WEATHER_DATA['main_temp_max'][t]) for t in range(len(WEATHER_DATA['main_temp_max']))]
-    wind_speed = []
-    [wind_speed.append(WEATHER_DATA['wind_speed'][t]) for t in range(len(WEATHER_DATA['wind_speed']))]
-    ave_clouds = []
-    [ave_clouds.append(WEATHER_DATA['clouds'][t]) for t in range(len(WEATHER_DATA['clouds']))]
+    times_today  = list(todays_weather['date_unix'].values)
+    ave_temp     = list(todays_weather['main_temp'].values)
+    ave_pressure = list(todays_weather['main_pressure'].values)
+    ave_humidity = list(todays_weather['main_humidity'].values)
+    min_temp     = list(todays_weather['main_temp_min'].values)
+    max_temp     = list(todays_weather['main_temp_max'].values)
+    wind_speed   = list(todays_weather['wind_speed'].values)
+    ave_clouds   = list(todays_weather['clouds'].values)
 
     # Find the latest time
-    last_time = unix_to_datetime(time[-1])
+    last_time = unix_to_datetime(times_today[-1])
 
     # Calculate the average temperature for today
     ave_day_temp = '%.2f' % kelvin_to_fahrenheit(get_average(ave_temp)) # calculate the average temperature and convert to fahrenheit
