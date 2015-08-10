@@ -26,23 +26,39 @@ def run_update_process(update_file):
         The parameter should be a direct link to the file
     """
     (start_time, end_time) = common_lib.update(update_file)
-    LOGGER.debug('recieved times from date function')
-    if end_time == 0:
-        LOGGER.debug('No need to update')
-        return
-        
-    # files to use
-    output_json = '../data/temp_example.json'
-    if not os.path.exists(output_json):
-        open(output_json, 'w').close()
+    first_time = start_time
+    start_time = 0
+    counter = 1
+    if end_time!=0:
+        weight = (1-(first_time/end_time))
 
-    extracted_json = common_lib.extractor(start_time, end_time)
-    LOGGER.debug('received json from extract funciton')
+    while end_time != 0:
+        LOGGER.debug("*******************\n\tUpdate :: "+str(counter))
+        if(counter!= 1):
+            print("Updating: "+'%2.2f'%((1-(end_time-start_time)/end_time/weight)*100)+"%")
+        counter = counter + 1
+        previous = start_time
+        (start_time, end_time) = common_lib.update(update_file)
 
-    common_lib.write_json_to_file(output_json, extracted_json)
+        if(previous == start_time):
+            LOGGER.debug('Hmmm, there\'s some error')
+            print("The api kicked out!")
+            sys.exit()
 
-    common_lib.parseJSONFile(output_json, update_file)
-    os.remove(output_json) # remove this file, unneeded
+        LOGGER.debug('recieved times from date function')
+
+        # files to use
+        output_json = '../data/temp_example.json'
+        if not os.path.exists(output_json):
+            open(output_json, 'w').close()
+
+        extracted_json = common_lib.extractor(start_time, end_time)
+        LOGGER.debug('received json from extract funciton')
+
+        common_lib.write_json_to_file(output_json, extracted_json)
+
+        common_lib.parseJSONFile(output_json, update_file)
+        os.remove(output_json) # remove this file, unneeded
     LOGGER.debug('csv was successfully updated')
 
 def run_init_process():

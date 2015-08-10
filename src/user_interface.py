@@ -122,11 +122,11 @@ def deal_with_user_input(selection):
         print('Processing option 3')
         # output = uil.option_3()
     elif selection == 4:
-        print(uil.ave_temps())
-        # output = uil.option_4()
+        print('Processing option 4');
+        output = uil.ave_temps()
     elif selection == 5:
-        print(uil.date_range())
-        # output = uil.option_5()
+        print('Processing option 5')
+        output = uil.date_range()
     else:
         LOGGER.debug('Definitely shouldn\'t have ended up here')
         sys.exit()
