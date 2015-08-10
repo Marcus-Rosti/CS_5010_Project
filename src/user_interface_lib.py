@@ -211,7 +211,8 @@ def temp_graph():
     #Select desired data
     temps = []
     [temps.append([WEATHER_DATA['date_unix'][t], WEATHER_DATA['main_temp_F'][t], 
-     WEATHER_DATA["main_temp_min_F"][t], WEATHER_DATA['main_temp_max_F'][t]]) for t in range(len(WEATHER_DATA['date_unix']))]
+     WEATHER_DATA["main_pressure"][t], WEATHER_DATA['main_humidity'][t],
+     WEATHER_DATA["clouds"][t]]) for t in range(len(WEATHER_DATA['date_unix']))]
     
     #Sort chronologically
     temps.sort()
@@ -219,51 +220,51 @@ def temp_graph():
     for i in range(len(temps)):
         temps[i][0] = unix_to_date(temps[i][0])
     
-    #Create average temp per day
+    #Create average stats per day
     day = []
-    atemp = []
-    mintemp = []
-    maxtemp = []
+    temp = []
+    humid = []
+    cloud = []
     j = 0  #Keeps track of how many entries per day
     for i in range(len(temps)):
         if day == []: #initialize
             day.append(temps[i][0])
-            atemp.append(temps[i][1])
-            mintemp.append(temps[i][2])
-            maxtemp.append(temps[i][3])
+            temp.append(temps[i][1])
+            humid.append(temps[i][3])
+            cloud.append(temps[i][4])
             j += 1
         elif day[-1] == temps[i][0]: #Add in values for same day
-            atemp[-1] += temps[i][1]
-            mintemp[-1] += temps[i][2]
-            maxtemp[-1] += temps[i][3]
+            temp[-1] += temps[i][1]
+            humid[-1] += temps[i][3]
+            cloud[-1] += temps[i][4]
             j += 1
         else:  #Create a new day and average the previous
-            atemp[-1] = atemp[-1]/j
-            mintemp[-1] = mintemp[-1]/j
-            maxtemp[-1] = maxtemp[-1]/j
+            temp[-1] = temp[-1]/j
+            humid[-1] = humid[-1]/j
+            cloud[-1] = cloud[-1]/j
             day.append(temps[i][0])
-            atemp.append(temps[i][1])
-            mintemp.append(temps[i][2])
-            maxtemp.append(temps[i][3])
+            temp.append(temps[i][1])
+            humid.append(temps[i][3])
+            cloud.append(temps[i][4])
             j = 1
     #average the last day
-    atemp[-1] = atemp[-1]/j
-    mintemp[-1] = mintemp[-1]/j
-    maxtemp[-1] = maxtemp[-1]/j
+    temp[-1] = temp[-1]/j
+    humid[-1] = humid[-1]/j
+    cloud[-1] = cloud[-1]/j
     
     #Alter day to make readable
     for i in range(len(day)):
-        if range(len(day))[i] % 50 != 0:
+        if day[i][3:5] != '01':  #First of every month
             day[i] = ''
     
-    py.plot(mintemp, 'b', label="Minimum Temperature")
-    py.plot(maxtemp, 'r', label='Maximum Temperature')
-    py.plot(atemp, 'g', label='Average Temperature')
+    #Create graph
+    py.plot(cloud, 'k', label='Cloud Coverage (%)')
+    py.plot(humid, 'b', label='Humidity (%)')
+    py.plot(temp, 'r', label='Temperature (F)')
     py.legend(loc='best')
-    py.title("Daily Temperatures")
+    py.title("Daily Statistics")
     py.xticks(np.arange(len(day)), day)
     py.xlabel("Date")
-    py.ylabel("Temperature (F)")
     py.show()
 
 def unix_to_datetime(n):
