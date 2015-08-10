@@ -85,7 +85,8 @@ def today_weather():
     ave_day_temp = '%.2f' % ave_day_temp # convert to a string with two decimal places
 
     # Find the minimum temperature of the day
-    n = min = 0
+    n = 0
+    min = min_temp[0]
     for i in range(len(min_temp)):
         if min > min_temp[i]:
             min = min_temp[i]
@@ -139,9 +140,9 @@ def today_weather():
     ave_day_clouds = '%.2f' % ave_day_clouds # convert to a string with two decimal places
 
     print_out = "Up to "+last_time+", the average temperature for today is "+ave_day_temp
-    print_out = print_out +", with a minimum temperature as "+min_day_temp+" and a maximum temperature as "+max_day_temp
-    print_out = print_out +". The average pressure is "+ave_day_pressure+", average humidity is "+ave_day_humidity
-    print_out = print_out +" the average wind speed is "+ave_day_wind_speed+", and the average cloud coverage for today is "
+    print_out = print_out +"F, with a minimum temperature as "+min_day_temp+"F and a maximum temperature as "+max_day_temp
+    print_out = print_out +"F. The average pressure is "+ave_day_pressure+"hPa, average humidity is "+ave_day_humidity
+    print_out = print_out +"%, average wind speed is "+ave_day_wind_speed+"m/s, and the average cloud coverage for today is "
     print_out = print_out +ave_day_clouds+"%."
 
     return print_out
