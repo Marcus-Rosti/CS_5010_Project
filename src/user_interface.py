@@ -113,24 +113,24 @@ def deal_with_user_input(selection):
     if selection == 0:
         print_goodbye()
     elif selection == 1:
-        print(uil.today_weather())
-        # output = uil.option_1()
+        print('Processing option' + str(selection))
+        output = uil.today_weather()
     elif selection == 2:
-        print('Processing option 2')
+        print('Processing option' + str(selection))
         # output = uil.option_2()
     elif selection == 3:
-        print('Processing option 3')
+        print('Processing option' + str(selection))
         # output = uil.option_3()
     elif selection == 4:
-        print('Processing option 4');
+        print('Processing option' + str(selection));
         output = uil.ave_temps()
     elif selection == 5:
-        print('Processing option 5')
+        print('Processing option' + str(selection))
         output = uil.date_range()
     else:
         LOGGER.debug('Definitely shouldn\'t have ended up here')
         sys.exit()
-        #print(output)
+    print(output)
     print_breaks()
     return True
 
