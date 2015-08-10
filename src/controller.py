@@ -29,10 +29,13 @@ def run_update_process(update_file):
     first_time = start_time
     start_time = 0
     counter = 1
+    if end_time!=0:
+        weight = (1-(first_time/end_time))
+
     while end_time != 0:
         LOGGER.debug("*******************\n\tUpdate :: "+str(counter))
         if(counter!= 1):
-            print("Update :: "+str(1-(end_time-start_time)/end_time/(first_time/end_time))+"%")
+            print("Updating: "+'%2.2f'%((1-(end_time-start_time)/end_time/weight)*100)+"%")
         counter = counter + 1
         previous = start_time
         (start_time, end_time) = common_lib.update(update_file)
@@ -41,7 +44,6 @@ def run_update_process(update_file):
             LOGGER.debug('Hmmm, there\'s some error')
             print("The api kicked out!")
             sys.exit()
-
 
         LOGGER.debug('recieved times from date function')
 
