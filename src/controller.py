@@ -29,19 +29,19 @@ def run_update_process(update_file):
     first_time = start_time
     start_time = 0
     counter = 1
-    if end_time!=0:
+    if end_time != 0:
         weight = (1-(first_time/end_time))
 
     while end_time != 0:
         LOGGER.debug("*******************\n\tUpdate :: "+str(counter))
-        if(counter!= 1):
+        if(counter != 1):
             print("Updating: "+'%2.2f'%((1-(end_time-start_time)/end_time/weight)*100)+"%")
         counter = counter + 1
         previous = start_time
         (start_time, end_time) = common_lib.update(update_file)
 
         if(previous == start_time):
-            LOGGER.debug('Hmmm, there\'s some error')
+            LOGGER.debug('Hmmm, there\'s some error. The api failed.')
             print("The api kicked out!")
             sys.exit()
 

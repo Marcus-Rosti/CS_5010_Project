@@ -50,6 +50,12 @@ def start_up(data_file):
         return False
     return True
 
+def get_average(list):
+    if len(list) > 0:
+        return float(sum(list))/len(list)
+    else:
+        return float('nan')
+
 def today_weather():
     """ Returns a string that does contain most up-to-date weather information
     """
@@ -76,68 +82,25 @@ def today_weather():
     last_time = unix_to_datetime(time[-1])
 
     # Calculate the average temperature for today
-    n = s = 0
-    for i in range(len(ave_temp)):
-        n += 1
-        s += ave_temp[i]
-
-    ave_day_temp = kelvin_to_fahrenheit(s/n) # calculate the average temperature and convert to fahrenheit
-    ave_day_temp = '%.2f' % ave_day_temp # convert to a string with two decimal places
+    ave_day_temp = '%.2f' % kelvin_to_fahrenheit(get_average(ave_temp)) # calculate the average temperature and convert to fahrenheit
 
     # Find the minimum temperature of the day
-    n = 0
-    min = min_temp[0]
-    for i in range(len(min_temp)):
-        if min > min_temp[i]:
-            min = min_temp[i]
-
-    min_day_temp = kelvin_to_fahrenheit(min) # convert the minimum temperature to fahrenheit
-    min_day_temp = '%.2f' % min_day_temp # convert to a string with two decimal places
+    min_day_temp = '%.2f' % kelvin_to_fahrenheit(get_average(min_temp)) # convert the minimum temperature to fahrenheit
 
     # Find the maximum temperature of the day
-    n = max = 0
-    for i in range(len(max_temp)):
-        if max < max_temp[i]:
-            max = max_temp[i]
-
-    max_day_temp = kelvin_to_fahrenheit(max) # convert the maximum temperature to fahrenheit
-    max_day_temp = '%.2f' % max_day_temp # convert to a string with two decimal places
+    max_day_temp = '%.2f' % kelvin_to_fahrenheit(get_average(max_temp)) # convert the maximum temperature to fahrenheit
 
     # Calculate the average pressure for today
-    n = s = 0
-    for i in range(len(ave_pressure)):
-        n += 1
-        s += ave_pressure[i]
-
-    ave_day_pressure = s/n # calculate the average pressure
-    ave_day_pressure = '%.2f' % ave_day_pressure # convert to a string with two decimal places
+    ave_day_pressure = '%.2f' % get_average(ave_pressure) # calculate the average pressure
 
     # Calculate the average humidity for today
-    n = s = 0
-    for i in range(len(ave_humidity)):
-        n += 1
-        s += ave_humidity[i]
-
-    ave_day_humidity = s/n # calculate the average humidity
-    ave_day_humidity = '%.2f' % ave_day_humidity # convert to a string with two decimal places
+    ave_day_humidity = '%.2f' % get_average(ave_humidity) # calculate the average humidity
 
     # Calculate the average wind speed for today
-    n = s = 0
-    for i in range(len(wind_speed)):
-        n += 1
-        s += wind_speed[i]
-
-    ave_day_wind_speed = s/n # calculate the average wind speed
-    ave_day_wind_speed = '%.2f' % ave_day_wind_speed # convert to a string with two decimal places
+    ave_day_wind_speed = '%.2f' % get_average(wind_speed) # calculate the average wind speed
 
      # Calculate the average cloud coverage for today
-    n = s = 0
-    for i in range(len(ave_clouds)):
-        n += 1
-        s += ave_clouds[i]
-
-    ave_day_clouds = s/n # calculate the average cloud coverage
-    ave_day_clouds = '%.2f' % ave_day_clouds # convert to a string with two decimal places
+    ave_day_clouds = '%.2f' % get_average(ave_clouds) # calculate the average cloud coverage
 
     print_out = "Up to "+last_time+", the average temperature for today is "+ave_day_temp
     print_out = print_out +"F, with a minimum temperature as "+min_day_temp+"F and a maximum temperature as "+max_day_temp
