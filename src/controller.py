@@ -62,6 +62,7 @@ def run_update_process(update_file):
         common_lib.parseJSONFile(output_json, update_file)
         os.remove(output_json) # remove this file, unneeded
     LOGGER.debug('csv was successfully updated')
+    return True
 
 def run_init_process():
     """ Initialize a file with appropriate headers
@@ -78,7 +79,7 @@ weather_description,clouds\n"
     empty_file.write(headers)
     empty_file.close()
 
-    run_update_process(file)
+    return run_update_process(file)
 
 
 def main(argv):
