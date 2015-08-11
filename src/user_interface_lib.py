@@ -269,6 +269,7 @@ def temp_graph():
 
     #Create graph
     #py.plot(cloud, 'k', label='Cloud Coverage (%)')  Too busy with this value
+    py.clf()
     py.plot(humid, 'b', label='Humidity (%)')
     py.plot(temp, 'r', label='Temperature (F)')
     py.legend(loc='best')
@@ -291,8 +292,9 @@ def weather_barchart():
     weather = pd.Series(list(week_weather['weather_main'].values))
 
     # Create a bar graph of different weather types
+    py.clf()
     weather.value_counts().plot(kind = 'bar')
-
+    py.show()
 
 def unix_to_datetime(n):
     '''
