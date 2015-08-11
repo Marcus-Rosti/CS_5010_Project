@@ -2,6 +2,16 @@
 
     To run this file:
         python user_interface.py
+
+    List of functions:
+        print_breaks
+        print_menu
+        accept_user_input
+        initalize_library
+        print_welcome
+        print_goodbye
+        deal_with_user_input
+        main
 """
 
 import user_interface_lib as uil
@@ -18,12 +28,22 @@ def print_breaks():
     """ Prints out line breaks
 
         Just so I'm consistent throughout without having to reuse code
+
+        Params:
+            None
+        Return:
+            None
     """
     print("#########################################")
     return True
 
 def print_menu():
     """ Prints out thte menu options
+
+        Params:
+            None
+        Return:
+            None
     """
     LOGGER.debug('Printing menu')
     print_breaks()
@@ -43,6 +63,11 @@ def accept_user_input():
         returns an int assciated to the menu
 
         if the value is out of range, then we'll return -1
+
+        Params:
+            None
+        Return:
+            user_selection
     """
     user_selection = float("-inf")
     try:
@@ -61,7 +86,12 @@ def accept_user_input():
 
 
 def initalize_library():
-    """ Calls the setup function
+    """ Calls the setup function from library
+
+        Params:
+            None
+        Return:
+            None
     """
     print_breaks()
     print('Initializing...')
@@ -71,6 +101,11 @@ def initalize_library():
 
 def print_welcome():
     """ Prints my stupid welcome text
+
+        Params:
+            None
+        Return:
+            None
     """
     print(",--.   ,--.       ,--.")
     print("|  |   |  | ,---. |  | ,---. ,---. ,--,--,--. ,---. ")
@@ -96,6 +131,11 @@ def print_welcome():
 
 def print_goodbye():
     """ Cleans up and exits
+
+        Params:
+            None
+        Return:
+            None
     """
     LOGGER.debug('Exiting classily')
     print("Stay classy, Charlottesville")
@@ -107,6 +147,11 @@ def deal_with_user_input(selection):
 
         This is the workhorse. It proccesses user input via uil and then prints
             the resulting string.
+
+        Params:
+            Selection - Within the range of possible options
+        Return:
+            None
     """
     output = 'Failure?'
     LOGGER.debug('User input: '+str(selection))
@@ -120,10 +165,12 @@ def deal_with_user_input(selection):
         output = uil.ave_temps()
     elif selection == 3:
         print('Processing option ' + str(selection))
-        output = uil.temp_graph()
+        uil.temp_graph()
+        output = "Temp graph"
     elif selection == 4:
         print('Processing option ' + str(selection))
-        output = uil.weather_barchart()
+        uil.weather_barchart()
+        output = "Bar graph"
     elif selection == 5:
         print('Processing option ' + str(selection))
         output = uil.date_range()
@@ -137,6 +184,11 @@ def deal_with_user_input(selection):
 
 def main():
     """ Entry point for the command line interface
+
+        Params:
+            None
+        Return:
+            None
     """
     LOGGER.debug("Running main")
     print_welcome()

@@ -7,6 +7,11 @@
         parameter.  Pretty simple.
 
     Logs print to $Project_home/logs/controller.log
+
+    List of Functions:
+        run_update_process(update_file)
+        run_init_process()
+        main(argv)
 """
 
 import logging
@@ -23,7 +28,12 @@ def run_update_process(update_file):
     """ Updates a csv of weather data
 
         Function takes in a file to update and appends data, if it's available
-        The parameter should be a direct link to the file
+
+        Params:
+            update_file: a file destination of a CSV with appropriate headers
+
+        Return:
+            None
     """
     (start_time, end_time) = common_lib.update(update_file)
     first_time = start_time
@@ -35,14 +45,14 @@ def run_update_process(update_file):
 
     while end_time != 0:
         LOGGER.debug("*******************\n\tUpdate :: "+str(counter))
-        if(counter != 1):
+        if counter != 1:
             print("Updating: "+'%2.2f'%((1-(end_time-start_time)/end_time/weight)*100)+"%")
         counter = counter + 1
         two_previous = previous
         previous = start_time
         (start_time, end_time) = common_lib.update(update_file)
 
-        if(two_previous == previous):
+        if two_previous == previous:
             LOGGER.debug('Hmmm, there\'s some error. The api failed.')
             print("WARNING: OpenWeather responded with nothing.")
             break
@@ -59,7 +69,7 @@ def run_update_process(update_file):
 
         common_lib.write_json_to_file(output_json, extracted_json)
 
-        common_lib.parseJSONFile(output_json, update_file)
+        common_lib.parse_json_file(output_json, update_file)
         os.remove(output_json) # remove this file, unneeded
     LOGGER.debug('csv was successfully updated')
     return True
@@ -68,6 +78,12 @@ def run_init_process():
     """ Initialize a file with appropriate headers
 
         This deals with the case of no file passed via clp
+
+        Params:
+            None
+
+        Return:
+            None
     """
     file = "../data/"+str(time.time())+"_data.csv"
     LOGGER.debug('Initializeing a new file: ' + file)
@@ -93,6 +109,9 @@ def main(argv):
             print out help if the user makes some sort of error in entry
 
         -i : required.  Takes a file location
+
+        Params:
+            argv: the command line parameter
     """
     LOGGER.debug('Taking command line parameters')
     infile = ''
