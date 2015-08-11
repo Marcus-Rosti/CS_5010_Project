@@ -28,11 +28,11 @@ def print_menu():
     LOGGER.debug('Printing menu')
     print_breaks()
     print("Select and option from below")
-    print("\t1) Get today's weather")
+    print("\t1) Get Today's Weather")
     print("\t2) Get Average Temperatures")
     print("\t3) Get Graphical Temperatures and Statistics")
-    print("\t4) Option 4")
-    print("\t5) Get data range")
+    print("\t4) Get Weather Bar Chart for the Past 7 Days")
+    print("\t5) Get Data Range")
     print("\t0) Exit")
     print_breaks()
     return True
@@ -120,9 +120,10 @@ def deal_with_user_input(selection):
         output = uil.ave_temps()
     elif selection == 3:
         print('Processing option ' + str(selection))
-        uil.temp_graph()
+        output = uil.temp_graph()
     elif selection == 4:
         print('Processing option ' + str(selection))
+        output = uil.weather_barchart()
     elif selection == 5:
         print('Processing option ' + str(selection))
         output = uil.date_range()

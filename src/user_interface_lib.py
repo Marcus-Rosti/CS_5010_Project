@@ -63,7 +63,7 @@ def get_average(list):
         return float('nan')
 
 def today_weather():
-    """ Returns a string that does contain most up-to-date weather information
+    """ Returns a string that does contain most up-to-date weather information for today
     """
     todays_weather = WEATHER_DATA[WEATHER_DATA['date_std'] == unix_to_date(time.time())]
 
@@ -83,11 +83,21 @@ def today_weather():
     # Calculate the average temperature for today
     ave_day_temp = '%.2f' % kelvin_to_fahrenheit(get_average(ave_temp)) # calculate the average temperature and convert to fahrenheit
 
-    # Find the minimum temperature of the day
-    min_day_temp = '%.2f' % kelvin_to_fahrenheit(get_average(min_temp)) # convert the minimum temperature to fahrenheit
+    # Find the minimum temperature of the day 
+    min = min_temp[0]
+    for i in range(len(min_temp)):
+        if min > min_temp[i]:
+            min = min_temp[i]
 
+    min_day_temp = '%.2f' % kelvin_to_fahrenheit(min) # convert the minimum temperature to fahrenheit
+    
     # Find the maximum temperature of the day
-    max_day_temp = '%.2f' % kelvin_to_fahrenheit(get_average(max_temp)) # convert the maximum temperature to fahrenheit
+    max = 0
+    for i in range(len(max_temp)):
+        if max < max_temp[i]:
+            max = max_temp[i]
+
+    max_day_temp = '%.2f' % kelvin_to_fahrenheit(max) # convert the maximum temperature to fahrenheit
 
     # Calculate the average pressure for today
     ave_day_pressure = '%.2f' % get_average(ave_pressure) # calculate the average pressure
@@ -267,6 +277,25 @@ def temp_graph():
     py.xlabel("Date")
     py.show()
 
+    
+def weather_barchart():
+    '''
+    outputs a bar chart of the weather for the past 7 days
+    '''
+    # Select desired data
+    week = 7*24*3600 #Number of seconds in a week
+    week = int(time.time() - week) #A week ago
+    week_weather = WEATHER_DATA[WEATHER_DATA['date_std'] > = unix_to_date(week)]
+    
+    # Read in required variables
+    weather = pd.Series(list(week_weather['weather_main'].values))
+    
+    # Create a bar graph of different weather types
+    bar_chart = weather.value_counts().plot(kind = 'bar')
+    
+    return bar_chart
+
+    
 def unix_to_datetime(n):
     '''
     Takes in unix date as an integer and returns date and time as a string
