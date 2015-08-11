@@ -139,6 +139,18 @@ def date_range():
 
     return "The weather data ranges from "+oldest+" to "+newest+"."
 
+def get_month_name(num_month):
+    """ Helper function to get month name
+
+        Params:
+            month - an in corresponding to a month
+        Return:
+            string containing the name of the month
+
+    """
+    return calendar.month_name[int(num_month)]
+
+
 def ave_temps():
     """ Calculate average temperatue
 
@@ -151,72 +163,19 @@ def ave_temps():
         A string with the appropriate weather
     """
     #Create a list of time and temperature data
-    temps = []
-    [temps.append([WEATHER_DATA['date_unix'][t], WEATHER_DATA['main_temp'][t]]) for t in range(len(WEATHER_DATA['date_unix']))]
-
-    #convert to fahrenhiet
-    for i in range(len(temps)):
-        temps[i][1] = kelvin_to_fahrenheit(temps[i][1])
-
     week = 7*24*3600 #Number of seconds in a week
     week = int(time.time() - week) #A week ago
 
     #Average the temps that greater than week
-    num_of_temps = sum_of_temps = 0
-    for i in range(len(temps)):
-        if temps[i][0] <= week:
-            num_of_temps += 1
-            sum_of_temps += temps[i][1]
-    if num_of_temps == 0:
-        return "Please update the data"
-    wtemp = sum_of_temps/num_of_temps
-    wtemp = '%.2f' % wtemp #Convert to a string with two decimal places
+    weeks_weather = WEATHER_DATA[WEATHER_DATA['date_std'] >= unix_to_date(week)]
+    wtemp = '%.2f' % kelvin_to_fahrenheit(get_average(weeks_weather['main_temp'].values))
 
-    #convert date to m/d/y format
-    for i in range(len(temps)):
-        temps[i][0] = unix_to_date(temps[i][0])
-
-    #get the current month
     month = unix_to_date(time.time())[:2]
 
-    #find and average the temperatures in the same month
-    num_of_temps = sum_of_temps = 0
-    for i in range(len(temps)):
-        if month == temps[i][0][:2]:
-            num_of_temps += 1
-            sum_of_temps += temps[i][1]
-    if num_of_temps == 0:
-        return "Please update and/or fill gaps in the data"
-    mtemp = sum_of_temps/num_of_temps
-    mtemp = '%.2f' % mtemp #Convert to a string with two decimal places
+    months_weather = WEATHER_DATA[WEATHER_DATA['date_std'] >= month]
+    mtemp = '%.2f' % kelvin_to_fahrenheit(get_average(months_weather['main_temp'].values))
 
-    #Generate a name for the month
-    if month == '01':
-        name = "January"
-    elif month == '02':
-        name = "February"
-    elif month == '03':
-        name = "March"
-    elif month == '04':
-        name = "April"
-    elif month == '05':
-        name = "May"
-    elif month == '06':
-        name = "June"
-    elif month == '07':
-        name = 'July'
-    elif month == "08":
-        name = 'August'
-    elif month == '09':
-        name = "September"
-    elif month == '10':
-        name = "October"
-    elif month == '11':
-        name = "November"
-    elif month == '12':
-        name = "December"
-    else:
-        return "Month name error"
+    name = get_month_name(month)
 
     #Print out temperatures
     return "The average temperature for "+name+" is "+mtemp+" F.  The average temperature this past week was "+wtemp+" F."

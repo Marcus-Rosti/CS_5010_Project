@@ -189,9 +189,7 @@ def extractor(start_time, end_time):
     """
     LOGGER.debug('Getting json between '+str(start_time)+' and '+str(end_time))
     # Create the url that needs to access
-    url = "http://api.openweathermap.org/data/2.5/\
-    history/city?id=4752046&APPID=5fbfc8b24f6c3c93a8ff66438c0639af\
-    &type=hour&start="+str(start_time)+"&end="+str(end_time)
+    url = "http://api.openweathermap.org/data/2.5/history/city?id=4752046&APPID=5fbfc8b24f6c3c93a8ff66438c0639af&type=hour&start="+str(start_time)+"&end="+str(end_time)
 
     LOGGER.debug('The Url:\n\t'+url)
     # Open the url
