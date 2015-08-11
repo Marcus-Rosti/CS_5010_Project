@@ -1,3 +1,4 @@
+Cython==0.22.1
 abstract-rendering==0.5.1
 alabaster==0.7.3
 appscript==1.0.1
@@ -23,7 +24,6 @@ conda-build==1.14.1
 conda-env==2.2.3
 configobj==5.0.6
 cryptography==0.9.1
-Cython==0.22.1
 cytoolz==0.7.3
 datashape==0.4.5
 daterangestr==0.0.3
