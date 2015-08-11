@@ -294,6 +294,9 @@ def weather_barchart():
     # Create a bar graph of different weather types
     py.clf()
     weather.value_counts().plot(kind = 'bar')
+    py.ylabel("Frequency")
+    py.xlabel("Type of weather")
+    py.title("Weather histogram over the past week")
     py.show()
 
 def unix_to_datetime(n):
