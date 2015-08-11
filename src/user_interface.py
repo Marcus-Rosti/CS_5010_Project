@@ -30,7 +30,7 @@ def print_menu():
     print("Select and option from below")
     print("\t1) Get Today's Weather")
     print("\t2) Get Average Temperatures")
-    print("\t3) Get Graphical Temperatures and Statistics")
+    print("\t3) Get Temperatures and humidity Line Graph")
     print("\t4) Get Weather Bar Chart for the Past 7 Days")
     print("\t5) Get Data Range")
     print("\t0) Exit")

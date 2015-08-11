@@ -276,6 +276,7 @@ def temp_graph():
     py.title("Daily Statistics")
     py.xticks(np.arange(len(day)), day)
     py.xlabel("Date")
+    py.savefig(str(time.time())+" Temperature Graph.png")
     py.show()
 
 
@@ -297,6 +298,7 @@ def weather_barchart():
     py.ylabel("Frequency")
     py.xlabel("Type of weather")
     py.title("Weather histogram over the past week")
+    py.savefig(str(time.time())+" Weather Bar Chart.png")
     py.show()
 
 def unix_to_datetime(n):
