@@ -5,9 +5,10 @@ import os
 os.chdir(os.getcwd()+'/src')
 
 file = "../logs/controller.log"
-empty_file = open(file, 'w')
-empty_file.write("First Post!")
-empty_file.close()
+basedir = os.path.dirname("../logs")
+if not os.path.exists("../logs"):
+    os.makedirs("../logs")
+open(file, 'a').close()
 
 import controller as cont
 import user_interface as ui
