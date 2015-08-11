@@ -83,14 +83,14 @@ def today_weather():
     # Calculate the average temperature for today
     ave_day_temp = '%.2f' % kelvin_to_fahrenheit(get_average(ave_temp)) # calculate the average temperature and convert to fahrenheit
 
-    # Find the minimum temperature of the day 
+    # Find the minimum temperature of the day
     min = min_temp[0]
     for i in range(len(min_temp)):
         if min > min_temp[i]:
             min = min_temp[i]
 
     min_day_temp = '%.2f' % kelvin_to_fahrenheit(min) # convert the minimum temperature to fahrenheit
-    
+
     # Find the maximum temperature of the day
     max = 0
     for i in range(len(max_temp)):
@@ -220,16 +220,16 @@ def temp_graph():
     '''
     #Select desired data
     temps = []
-    [temps.append([WEATHER_DATA['date_unix'][t], WEATHER_DATA['main_temp_F'][t], 
+    [temps.append([WEATHER_DATA['date_unix'][t], WEATHER_DATA['main_temp_F'][t],
      WEATHER_DATA["main_pressure"][t], WEATHER_DATA['main_humidity'][t],
      WEATHER_DATA["clouds"][t]]) for t in range(len(WEATHER_DATA['date_unix']))]
-    
+
     #Sort chronologically
     temps.sort()
     #Convert to m/d/y format
     for i in range(len(temps)):
         temps[i][0] = unix_to_date(temps[i][0])
-    
+
     #Create average stats per day
     day = []
     temp = []
@@ -261,12 +261,12 @@ def temp_graph():
     temp[-1] = temp[-1]/j
     humid[-1] = humid[-1]/j
     cloud[-1] = cloud[-1]/j
-    
+
     #Alter day to make readable
     for i in range(len(day)):
         if day[i][3:5] != '01':  #First of every month
             day[i] = ''
-    
+
     #Create graph
     py.plot(cloud, 'k', label='Cloud Coverage (%)')
     py.plot(humid, 'b', label='Humidity (%)')
@@ -277,7 +277,7 @@ def temp_graph():
     py.xlabel("Date")
     py.show()
 
-    
+
 def weather_barchart():
     '''
     outputs a bar chart of the weather for the past 7 days
@@ -285,17 +285,17 @@ def weather_barchart():
     # Select desired data
     week = 7*24*3600 #Number of seconds in a week
     week = int(time.time() - week) #A week ago
-    week_weather = WEATHER_DATA[WEATHER_DATA['date_std'] > = unix_to_date(week)]
-    
+    week_weather = WEATHER_DATA[WEATHER_DATA['date_std'] >= unix_to_date(week)]
+
     # Read in required variables
     weather = pd.Series(list(week_weather['weather_main'].values))
-    
+
     # Create a bar graph of different weather types
     bar_chart = weather.value_counts().plot(kind = 'bar')
-    
+
     return bar_chart
 
-    
+
 def unix_to_datetime(n):
     '''
     Takes in unix date as an integer and returns date and time as a string
